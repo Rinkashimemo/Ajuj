@@ -7,7 +7,7 @@ var WordService = require('./components/wordservice.js');
 var WeatherService = require('./components/weatherservice.js');
 
 var commands = {
-  '!video': {
+  '!play': {
     execute: getVideo,
     description: 'get a youtube video by search word'
   },
@@ -30,8 +30,8 @@ var commands = {
     execute: doQueue,
     description: 'queue your song'
   },
-  '!voteskip': {
-    execute: voteSkip,
+  '!skip': {
+    execute: Skip,
     description: 'vote to skip the current song'
   },
   '!song': {
@@ -178,5 +178,19 @@ function init() {
     WeatherService = registerService(WeatherService, ['!weather']);
   }).catch(console.error);
 }
+const Discord = require('discord.js');
+const client = new Discord.Client();
 
+client.on('ready', () => {
+    console.log('I am ready!');
+});
+
+client.on('message', message => {
+    if (message.content === 'ping') {
+    	message.reply('pong');
+  	}
+});
+
+// THIS  MUST  BE  THIS  WAY
+client.login(process.env.BOT_TOKEN);
 init();
